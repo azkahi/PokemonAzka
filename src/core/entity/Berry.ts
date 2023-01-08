@@ -1,7 +1,7 @@
 export default class Berry {
   name: string
   berryType: BerryType
-  weightInKg: number
+  weight: number
 
   constructor(name: string, berryType: string) {
     this.name = name

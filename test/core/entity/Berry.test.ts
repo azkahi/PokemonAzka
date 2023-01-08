@@ -4,6 +4,6 @@ describe('Berry entity', () => {
   test('Should create berry from constructor args', async function () {
     const berry = new Berry('Test Berry', 'very-soft')
     expect(berry.name).toBe('Test Berry')
-    expect(berry.weightInKg).toBe(2)
+    expect(berry.weight).toBe(2)
   })
 })
