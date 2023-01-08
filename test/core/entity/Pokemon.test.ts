@@ -8,7 +8,7 @@ describe('Pokemon entity', () => {
     expect(pokemon.name).toBe('Test Pokemon')
     expect(pokemon.weight).toBe(3)
     expect(pokemon.sprites[0]).toBe('sprite_url')
-    expect(pokemon.stats[0].label).toBe('speed')
+    expect(pokemon.stats[0].label).toBe('Speed')
     expect(pokemon.stats[0].base).toBe(6)
   })
 })
