@@ -21,6 +21,7 @@ const HomeViewModel = () => {
   const buildListData = async () => {
     const response = await searchPokemon.getAllPokemon(offset, DEFAULT_PAGE_SIZE)
     listData.push(...response)
+    setListData(listData)
     setOffset(offset + 1)
   }
 

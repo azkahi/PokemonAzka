@@ -6,16 +6,18 @@ import { useTheme } from '../../hooks'
 
 import ViewModel from './HomeViewModel'
 
-const Item = ({ title }) => (
+const Item = ({ pokemon }) => (
   <View>
-    <Text style={{ color: 'black' }}>{title}</Text>
+    <Text>{pokemon.name}</Text>
   </View>
 )
 
-export const HomeScreen = (props: HomeScreenProps): JSX.Element => {
+export const HomeScreen = (): JSX.Element => {
   const { buildListData, searchPokemonByKeyword, listData, initListData } = ViewModel()
 
-  const renderItem = ({ item }) => <Item title={item.name} />
+  const renderItem = ({ item }) => {
+    return <Item pokemon={item} />
+  }
 
   const [keyword, setKeyword] = useState('')
 
@@ -41,7 +43,6 @@ export const HomeScreen = (props: HomeScreenProps): JSX.Element => {
         renderItem={renderItem}
         keyExtractor={(item) => item.name}
       />
-      <Text>Test</Text>
     </View>
   )
 }

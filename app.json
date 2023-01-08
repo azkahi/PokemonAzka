@@ -4,7 +4,7 @@
     "slug": "PokemonAzka",
     "scheme": "template",
     "version": "1.0.0",
-    "owner": "binarapps",
+    "owner": "crypticjam",
     "userInterfaceStyle": "automatic",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -28,10 +28,12 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "jsEngine": "hermes"
+      "jsEngine": "hermes",
+      "package": "io.pokemon.azka"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": ["@config-plugins/detox"]
   }
 }

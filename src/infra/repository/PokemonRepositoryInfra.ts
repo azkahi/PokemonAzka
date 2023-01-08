@@ -1,4 +1,4 @@
-import Pokemon from '../../core/entity/Pokemon'
+import Pokemon, { Stats } from '../../core/entity/Pokemon'
 import PokemonRepository from '../../core/repository/PokemonRepository'
 import RequestAPIHelper from '../utils/requestAPIHelper'
 
@@ -22,8 +22,23 @@ export default class PokemonRepositoryInfra implements PokemonRepository {
 
     const pokemons: Pokemon[] = []
 
-    response.results.forEach((element: any) => {
-      const pokemon = new Pokemon(element.name, 1, [], [], undefined)
+    response.results.forEach(async (element: any) => {
+      const responsePokemon = await RequestAPIHelper.GetRequest(element.url)
+
+      const stats: Stats[] = []
+
+      responsePokemon.stats.forEach((statItem: any) => {
+        const stat = { label: statItem.stat.name, base: statItem.base_stat }
+        stats.push(stat)
+      })
+
+      const pokemon = new Pokemon(
+        element.name,
+        responsePokemon.weight,
+        Object.values(responsePokemon.sprites),
+        stats,
+        undefined
+      )
       pokemons.push(pokemon)
     })
 
