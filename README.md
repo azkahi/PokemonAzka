@@ -1,44 +1,10 @@
-![Logo](assets/logo.png)
+# Pokemon Azka
 
-[![MIT License](https://img.shields.io/npm/l/@kacgrzes/expo-template?style=flat-square)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
-[![MIT License](https://img.shields.io/npm/v/@kacgrzes/expo-template?style=flat-square)](https://img.shields.io/npm/v/@kacgrzes/expo-template?style=flat-square)
-[![MIT License](https://img.shields.io/npm/dt/@kacgrzes/expo-template?style=flat-square)](https://img.shields.io/npm/dt/@kacgrzes/expo-template?style=flat-square)
-[![MIT License](https://img.shields.io/github/stars/kacgrzes/expo-typescript-template?style=flat-square)](https://img.shields.io/github/stars/kacgrzes/expo-typescript-template?style=flat-square)
+This project is constructed from:
 
-# @kacgrzes/expo-template
-
-This is a template to be used with expo. It includes all the necessary stuff to start working with expo framework. It has the most popular packages included so it's easier to start coding the app itself without all the necessary boilerplate setup. It has:
+``` @kacgrzes/expo-template ```
 
 Version in the `package.json` is one to one the latest expo on which the template was tested.
-
-## Features
-
-[![MIT License](https://img.shields.io/npm/types/@kacgrzes/expo-template?style=flat-square)](https://img.shields.io/npm/types/@kacgrzes/expo-template?style=flat-square)
-[![MIT License](https://img.shields.io/github/package-json/dependency-version/kacgrzes/expo-typescript-template/expo?style=flat-square)](https://img.shields.io/github/package-json/dependency-version/kacgrzes/expo-typescript-template/expo?style=flat-square)
-[![MIT License](https://img.shields.io/github/package-json/dependency-version/kacgrzes/expo-typescript-template/@react-navigation/native?style=flat-square)](https://img.shields.io/github/package-json/dependency-version/kacgrzes/expo-typescript-template/@react-navigation/native?style=flat-square)
-
-- Expo
-- React Navigation
-  - with dark and light theme set up
-  - with screen tracking hook
-  - state persistance on development mode
-  - prevent go back (to be used on forms for example)
-- color scheme detection (dark / light mode toggle)
-- hermes enabled on Android by default
-- i18next with translations, language detection and translations
-- wait to load fonts and all the assets
-- auth flow ready for implementation details
-  - using expo-secure-store module to save user token
-  - right now it has simple signIn/signOut flow
-- prettier
-- babel-module-resolver
-- tests with jest and @testing-library/react-native
-
-See all the details in the documentation.
-
-## Screenshots
-
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
 
 ## Installation
 
@@ -50,61 +16,47 @@ Init expo with this template using:
 
 ## Documentation
 
-[Documentation](https://linktodocumentation)
+This project is developed with clean architecture in mind. The `src/core` folder consist of important business logic while the `src/infra` folder consist of relevant code in regards to the framework.
 
-## Demo
+## Assumption
 
-Insert gif or link to demo
-
-## Roadmap
-
-- Additional browser support
-
-- Add more integrations
-
-## Contributing
-
-Contributions are always welcome!
-
-See `contributing.md` for ways to get started.
-
-Please adhere to this project's `code of conduct`.
+1. A pokemon may only have 1 or no evolution at all
+2. A pokemon may eat berry type of `others` indefinitely without throwing up
+3. A pokemon may exceed the evolution weight threshold of evolution without evoluting
 
 ## Run Locally
 
 Clone the project
 
 ```bash
-  git clone https://github.com/kacgrzes/expo-typescript-template.git
+  git clone project.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd expo-typescript-template
+  cd PokemonAzka
 ```
 
 Install dependencies
 
 ```bash
-  yarn
+  npm install
 ```
 
 Start the expo server
 
 ```bash
-  yarn start
+  npm run start
 ```
 
-## License
+Run on android
 
-[MIT](https://choosealicense.com/licenses/mit/)
+```bash
+  npm run android
+```
 
-## Feedback
-
-If you have any feedback, please reach out to me at kacgrzes@gmail.com
-
-## Contributors
-
-- [@kacgrzes](https://www.github.com/kacgrzes)
-- [@MateuszRostkowski](https://www.github.com/MateuszRostkowski)
+Run on ios
+```bash
+  npm run ios
+```
