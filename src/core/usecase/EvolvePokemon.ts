@@ -4,8 +4,8 @@ import PokemonRepository from '../repository/PokemonRepository'
 export default class EvolvePokemon {
   private pokemonRepo: PokemonRepository
 
-  constructor(roomRepository: PokemonRepository) {
-    this.pokemonRepo = roomRepository
+  constructor(pokemonRepo: PokemonRepository) {
+    this.pokemonRepo = pokemonRepo
   }
 
   async willEvolveTo(pokemon: Pokemon): Promise<Pokemon> {
