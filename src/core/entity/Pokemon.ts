@@ -30,6 +30,19 @@ export default class Pokemon {
       this.weight = 1
     }
   }
+
+  // Prototype design pattern
+  private clone(pokemon: Pokemon): void {
+    this.name = pokemon.name
+    this.weight = pokemon.weight
+    this.sprites = pokemon.sprites
+    this.stats = pokemon.stats
+    this.prevBerry = pokemon.prevBerry
+  }
+
+  evolveTo(pokemon: Pokemon): void {
+    this.clone(pokemon)
+  }
 }
 
 export interface Stats {
