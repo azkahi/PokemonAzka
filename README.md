@@ -6,14 +6,6 @@ This project is constructed from:
 
 Version in the `package.json` is one to one the latest expo on which the template was tested.
 
-## Installation
-
-Init expo with this template using:
-
-```bash
-  expo init --template=@kacgrzes/expo-template <name of your app>
-```
-
 ## Documentation
 
 This project is developed with clean architecture in mind. The `src/core` folder consist of important business logic while the `src/infra` folder consist of relevant code in regards to the framework.
