@@ -31,6 +31,10 @@ export default class Pokemon {
     }
   }
 
+  eatBerry(berry: Berry): void {
+    this.prevBerry = berry
+  }
+
   // Prototype design pattern
   private clone(pokemon: Pokemon): void {
     this.name = pokemon.name
