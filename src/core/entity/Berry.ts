@@ -2,16 +2,18 @@ export default class Berry {
   name: string
   berryType: BerryType
   weight: number
+  defaultSprite: string
 
-  constructor(name: string, berryType: string) {
+  constructor(name: string, berryType: string, defaultSprite: string) {
     this.name = name
     this.berryType = berryType as unknown as BerryType
-    this.weightInKg =
+    this.weight =
       BerryTypeWeightInKg[
         Object.keys(BerryType)[
           Object.values(BerryType).indexOf(this.berryType)
         ] as keyof typeof BerryTypeWeightInKg
       ]
+    this.defaultSprite = defaultSprite
   }
 }
 
