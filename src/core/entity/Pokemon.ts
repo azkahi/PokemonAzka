@@ -1,4 +1,4 @@
-import Berry from "./Berry"
+import Berry, { BerryType } from './Berry'
 
 export default class Pokemon {
   name: string
@@ -13,6 +13,22 @@ export default class Pokemon {
     this.sprites = sprites
     this.stats = stats
     this.prevBerry = prevBerry
+  }
+
+  checkBerryOkay(berry: Berry): boolean {
+    return (
+      this.prevBerry?.berryType !== berry.berryType ||
+      this.prevBerry === undefined ||
+      this.prevBerry?.berryType === BerryType.Others
+    )
+  }
+
+  changePokemonWeight(weight: number): void {
+    this.weight = this.weight + weight
+
+    if (this.weight <= 0) {
+      this.weight = 1
+    }
   }
 }
 
