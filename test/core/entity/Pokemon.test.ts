@@ -49,4 +49,16 @@ describe('Pokemon entity', () => {
 
     expect(pokemon.checkBerryOkay(nextBerry)).toBe(true)
   })
+
+  test('Should successfully evolve', async function () {
+    const sprites = ['sprite_url']
+    const stats = [{ label: 'Speed', base: 6 }]
+    const pokemon = new Pokemon('Test Pokemon', 3, sprites, stats, undefined)
+
+    const pokemonEvolve = new Pokemon('Test Pokemon Evolution', 3, sprites, stats, undefined)
+
+    pokemon.evolveTo(pokemonEvolve)
+
+    expect(pokemon.name).toBe('Test Pokemon Evolution')
+  })
 })
