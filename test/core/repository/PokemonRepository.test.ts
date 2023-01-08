@@ -1,6 +1,6 @@
 import Pokemon from '../../../src/core/entity/Pokemon'
 import PokemonRepository from '../../../src/core/repository/PokemonRepository'
-import PokemonRepositoryInMemory from './PokemonRepoositoryInMemory'
+import PokemonRepositoryInMemory from './PokemonRepositoryInMemory'
 
 describe('Pokemon Repository', () => {
   let pokemonRepo: PokemonRepository
