@@ -1,4 +1,4 @@
-import Pokemon, { Stats } from '../../../src/core/entity/Pokemon'
+import Pokemon from '../../../src/core/entity/Pokemon'
 
 describe('Pokemon entity', () => {
   test('Should create pokemon from constructor args', async function () {
