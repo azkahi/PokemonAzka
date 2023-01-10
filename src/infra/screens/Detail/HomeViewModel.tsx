@@ -1,13 +1,13 @@
 import { useState, useCallback } from 'react'
 
 import Pokemon from '../../../core/entity/Pokemon'
-import SearchPokemon from '../../../core/usecase/SearchPokemon'
+import feedPokemon from '../../../core/usecase/SearchPokemon'
 import { DEFAULT_PAGE_SIZE } from '../../constants'
 import PokemonRepositoryInfra from '../../repository/PokemonRepositoryInfra'
 
-const HomeViewModel = () => {
+const DetailViewModel = () => {
   const pokemonRepo: PokemonRepositoryInfra = new PokemonRepositoryInfra()
-  const searchPokemon: SearchPokemon = new SearchPokemon(pokemonRepo)
+  const feedPokemon: SearchPokemon = new SearchPokemon(pokemonRepo)
 
   const [offset, setOffset] = useState(0)
   const [listData, setListData] = useState<Pokemon[]>([])
@@ -59,4 +59,4 @@ const HomeViewModel = () => {
   }
 }
 
-export default HomeViewModel
+export default DetailViewModel

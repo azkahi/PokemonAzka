@@ -16,7 +16,7 @@ import { PokemonCard } from '../../components/PokemonCard'
 
 import ViewModel from './HomeViewModel'
 
-export const HomeScreen = (): JSX.Element => {
+export const DetailScreen = (): JSX.Element => {
   const {
     buildListData,
     searchPokemonByKeyword,
