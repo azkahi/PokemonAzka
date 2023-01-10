@@ -8,7 +8,7 @@ const { Navigator, Screen } = createStackNavigator<RootStackParamList>()
 export const RootNavigator: FC = () => {
   return (
     <Navigator>
-      <Screen name="Pokemon List" component={HomeScreen} />
+      <Screen name="Pokemon List" component={HomeScreen} options={{ headerShown: false }} />
     </Navigator>
   )
 }

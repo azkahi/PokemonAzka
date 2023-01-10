@@ -8,7 +8,6 @@ export const Navigation: FC = () => {
 
   return (
     <>
-      <StatusBar />
       <NavigationContainer>
         <RootNavigator />
       </NavigationContainer>

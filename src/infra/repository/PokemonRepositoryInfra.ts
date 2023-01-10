@@ -22,25 +22,28 @@ export default class PokemonRepositoryInfra implements PokemonRepository {
 
     const pokemons: Pokemon[] = []
 
-    response.results.forEach(async (element: any) => {
-      const responsePokemon = await RequestAPIHelper.GetRequest(element.url)
+    await Promise.all(
+      response.results.map(async (element: any) => {
+        const responsePokemon = await RequestAPIHelper.GetRequest(element.url)
 
-      const stats: Stats[] = []
+        const stats: Stats[] = []
 
-      responsePokemon.stats.forEach((statItem: any) => {
-        const stat = { label: statItem.stat.name, base: statItem.base_stat }
-        stats.push(stat)
+        responsePokemon.stats.forEach((statItem: any) => {
+          const stat = { label: statItem.stat.name, base: statItem.base_stat }
+          stats.push(stat)
+        })
+
+        const pokemon = new Pokemon(
+          element.name,
+          responsePokemon.weight,
+          Object.values(responsePokemon.sprites),
+          stats,
+          undefined
+        )
+
+        pokemons.push(pokemon)
       })
-
-      const pokemon = new Pokemon(
-        element.name,
-        responsePokemon.weight,
-        Object.values(responsePokemon.sprites),
-        stats,
-        undefined
-      )
-      pokemons.push(pokemon)
-    })
+    )
 
     return pokemons
   }

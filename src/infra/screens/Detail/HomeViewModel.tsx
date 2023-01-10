@@ -5,21 +5,15 @@ import SearchPokemon from '../../../core/usecase/SearchPokemon'
 import { DEFAULT_PAGE_SIZE } from '../../constants'
 import PokemonRepositoryInfra from '../../repository/PokemonRepositoryInfra'
 
-export interface PokemonDecorator {
-  pokemon: Pokemon
-  selected: boolean
-}
-
 const HomeViewModel = () => {
   const pokemonRepo: PokemonRepositoryInfra = new PokemonRepositoryInfra()
   const searchPokemon: SearchPokemon = new SearchPokemon(pokemonRepo)
 
   const [offset, setOffset] = useState(0)
-  const [listData, setListData] = useState<PokemonDecorator[]>([])
+  const [listData, setListData] = useState<Pokemon[]>([])
   const [loading, setLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
-  const [selectedOne, setSelectedOne] = useState(false)
-  let selectedPokemon: Pokemon = {} as Pokemon
+  const [data, setData] = useState({} as Pokemon)
 
   const setIndicatorLoading = (stateBool: boolean) => {
     setLoading(stateBool)
@@ -27,39 +21,16 @@ const HomeViewModel = () => {
   }
 
   const initListData = async () => {
-    setIndicatorLoading(true)
     await setListData([])
     await setOffset(0)
     await buildListData()
   }
-
-  const selectPokemon = (pokemon: Pokemon) => {
-    setListData(
-      listData.map((element) => {
-        if (element.pokemon.name === pokemon.name) {
-          element.selected = !element.selected
-          setSelectedOne(element.selected)
-          if (element.selected) {
-            selectedPokemon = pokemon
-          } else {
-            selectedPokemon = {} as Pokemon
-          }
-        } else {
-          element.selected = false
-        }
-
-        return element
-      })
-    )
-  }
-
   const buildListData = async () => {
+    setIndicatorLoading(true)
     const response = await searchPokemon.getAllPokemon(offset, DEFAULT_PAGE_SIZE)
-    response.forEach((element) => {
-      listData.push({ pokemon: element, selected: false })
-    })
+    listData.push(...response)
     setListData(listData)
-    setOffset(offset + DEFAULT_PAGE_SIZE)
+    setOffset(offset + 1)
     setIndicatorLoading(false)
   }
 
@@ -68,7 +39,7 @@ const HomeViewModel = () => {
     setOffset(0)
     setIndicatorLoading(true)
     const response = await searchPokemon.searchPokemon(keyword)
-    // listData.push(...response)
+    listData.push(...response)
     setIndicatorLoading(false)
   }
 
@@ -85,8 +56,6 @@ const HomeViewModel = () => {
     refreshing,
     setRefreshing,
     onRefresh,
-    selectPokemon,
-    selectedOne,
   }
 }
 
