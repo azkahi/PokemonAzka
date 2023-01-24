@@ -91,6 +91,7 @@
     "react-native-whirlwind": "^0.1.0-beta.4",
     "react-query": "^3.24.3",
     "recoil": "^0.7.6",
+    "recoil-persist": "^4.2.0",
     "use-debounce": "^7.0.0"
   },
   "devDependencies": {
