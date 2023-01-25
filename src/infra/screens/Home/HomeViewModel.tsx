@@ -1,7 +1,10 @@
+import { CommonActions } from '@react-navigation/native'
 import { useState, useCallback } from 'react'
+import { useRecoilState } from 'recoil'
 
 import Pokemon from '../../../core/entity/Pokemon'
 import SearchPokemon from '../../../core/usecase/SearchPokemon'
+import { pokemonState } from '../../atoms/PokemonState'
 import { DEFAULT_PAGE_SIZE } from '../../constants'
 import PokemonRepositoryInfra from '../../repository/PokemonRepositoryInfra'
 
@@ -18,8 +21,9 @@ const HomeViewModel = () => {
   const [listData, setListData] = useState<PokemonDecorator[]>([])
   const [loading, setLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
-  const [selectedOne, setSelectedOne] = useState(false)
-  let selectedPokemon: Pokemon = {} as Pokemon
+  const [selectedPokemon, setSelectedPokemon] = useState({} as Pokemon)
+  const [keyword, setKeyword] = useState('')
+  const [finalSelectedPokemon, setFinalSelectedPokemon] = useRecoilState(pokemonState)
 
   const setIndicatorLoading = (stateBool: boolean) => {
     setLoading(stateBool)
@@ -38,11 +42,10 @@ const HomeViewModel = () => {
       listData.map((element) => {
         if (element.pokemon.name === pokemon.name) {
           element.selected = !element.selected
-          setSelectedOne(element.selected)
           if (element.selected) {
-            selectedPokemon = pokemon
+            setSelectedPokemon(pokemon)
           } else {
-            selectedPokemon = {} as Pokemon
+            setSelectedPokemon({} as Pokemon)
           }
         } else {
           element.selected = false
@@ -64,17 +67,55 @@ const HomeViewModel = () => {
   }
 
   const searchPokemonByKeyword = async (keyword: string) => {
+    setKeyword(keyword)
+    listData.length = 0
     setListData([])
     setOffset(0)
     setIndicatorLoading(true)
-    const response = await searchPokemon.searchPokemon(keyword)
-    // listData.push(...response)
+    if (!keyword) {
+      buildListData()
+    } else {
+      const response = await searchPokemon.searchPokemon(keyword)
+      response.forEach((element) => {
+        listData.push({ pokemon: element, selected: false })
+      })
+      setListData(listData)
+    }
     setIndicatorLoading(false)
   }
 
   const onRefresh = useCallback(() => {
     initListData()
   }, [])
+
+  const choosePokemon = async (pokemon: Pokemon, navigation: any) => {
+    setFinalSelectedPokemon(pokemon)
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 1,
+        routeNames: ['Pokemon Detail'],
+        routes: [{ name: 'Pokemon Detail' }],
+      })
+    )
+  }
+
+  const checkPokemonState = async (navigation: any) => {
+    const pokemonActive = finalSelectedPokemon
+
+    if (pokemonActive.name === undefined) {
+      return
+    }
+
+    if (pokemonActive.name !== '') {
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 1,
+          routeNames: ['Pokemon Detail'],
+          routes: [{ name: 'Pokemon Detail' }],
+        })
+      )
+    }
+  }
 
   return {
     listData,
@@ -86,7 +127,11 @@ const HomeViewModel = () => {
     setRefreshing,
     onRefresh,
     selectPokemon,
-    selectedOne,
+    selectedPokemon,
+    choosePokemon,
+    keyword,
+    setKeyword,
+    checkPokemonState,
   }
 }
 

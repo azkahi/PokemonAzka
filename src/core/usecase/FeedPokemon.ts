@@ -1,4 +1,5 @@
 import Berry from '../entity/Berry'
+import Pokemon from '../entity/Pokemon'
 import BerryRepository from '../repository/BerryRepository'
 import PokemonRepository from '../repository/PokemonRepository'
 
@@ -11,26 +12,23 @@ export default class FeedPokemon {
     this.berryRepo = berryRepository
   }
 
-  async execute(berry: Berry): Promise<boolean> {
+  async execute(berry: Berry, pokemon: Pokemon): Promise<boolean> {
     try {
-      const pokemon = await this.pokemonRepo.getActivePokemon()
-
       if (pokemon.checkBerryOkay(berry)) {
         pokemon.changePokemonWeight(berry.weight)
-        pokemon.prevBerry = berry
+        pokemon.eatBerry(berry)
       } else {
         pokemon.changePokemonWeight(-2 * berry.weight)
       }
-
       return Promise.resolve(true)
     } catch {
       return Promise.resolve(false)
     }
   }
 
-  async getAllBerries(): Promise<Berry[]> {
+  async getAllBerries(offset: number, limit: number): Promise<Berry[]> {
     try {
-      const berries = await this.berryRepo.getListOfBerries()
+      const berries = await this.berryRepo.getListOfBerries(offset, limit)
 
       return Promise.resolve(berries)
     } catch {

@@ -7,7 +7,7 @@ export default class Pokemon {
   stats: Stats[]
   prevBerry?: Berry
 
-  constructor(name: string, weight: number, sprites: string[], stats: Stats[], prevBerry?: Berry) {
+  public constructor(name: string, weight: number, sprites: string[], stats: Stats[], prevBerry?: Berry) {
     this.name = name
     this.weight = weight
     this.sprites = sprites
@@ -15,7 +15,7 @@ export default class Pokemon {
     this.prevBerry = prevBerry
   }
 
-  checkBerryOkay(berry: Berry): boolean {
+  public checkBerryOkay(berry: Berry): boolean {
     return (
       this.prevBerry?.berryType !== berry.berryType ||
       this.prevBerry === undefined ||
@@ -23,7 +23,7 @@ export default class Pokemon {
     )
   }
 
-  changePokemonWeight(weight: number): void {
+  public changePokemonWeight(weight: number): void {
     this.weight = this.weight + weight
 
     if (this.weight <= 0) {
@@ -31,7 +31,7 @@ export default class Pokemon {
     }
   }
 
-  eatBerry(berry: Berry): void {
+  public eatBerry(berry: Berry): void {
     this.prevBerry = berry
   }
 
@@ -44,7 +44,7 @@ export default class Pokemon {
     this.prevBerry = pokemon.prevBerry
   }
 
-  evolveTo(pokemon: Pokemon): void {
+  public evolveTo(pokemon: Pokemon): void {
     this.clone(pokemon)
   }
 }

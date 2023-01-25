@@ -8,10 +8,6 @@ export default class SearchPokemon {
     this.pokemonRepo = pokemonRepo
   }
 
-  async getActivePokemon(): Promise<Pokemon> {
-    return await this.pokemonRepo.getActivePokemon()
-  }
-
   async getAllPokemon(offset: number, limit: number): Promise<Pokemon[]> {
     try {
       const pokemons = await this.pokemonRepo.getListOfPokemons(offset, limit)

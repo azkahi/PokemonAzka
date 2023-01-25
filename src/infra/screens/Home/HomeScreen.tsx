@@ -6,7 +6,6 @@ import {
   ActivityIndicator,
   RefreshControl,
   StyleSheet,
-  Dimensions,
 } from 'react-native'
 import { SearchBar, Button } from '@rneui/themed'
 
@@ -16,7 +15,7 @@ import { PokemonCard } from '../../components/PokemonCard'
 
 import ViewModel from './HomeViewModel'
 
-export const HomeScreen = (): JSX.Element => {
+export const HomeScreen = ({ navigation }): JSX.Element => {
   const {
     buildListData,
     searchPokemonByKeyword,
@@ -26,7 +25,11 @@ export const HomeScreen = (): JSX.Element => {
     refreshing,
     onRefresh,
     selectPokemon,
-    selectedOne
+    selectedPokemon,
+    choosePokemon,
+    keyword,
+    setKeyword,
+    checkPokemonState
   } = ViewModel()
 
   const { s } = useTheme()
@@ -37,21 +40,16 @@ export const HomeScreen = (): JSX.Element => {
     )
   }
 
-  const [keyword, setKeyword] = useState('')
-
-  const updateKeyword = (search: string) => {
-    setKeyword(search)
-  }
-
   useEffect(() => {
     initListData()
+    checkPokemonState(navigation)
   }, [])
 
   return (
     <View style={[s.flex1]}>
       <SearchBar
         placeholder="Search Pokemon Here..."
-        onChangeText={updateKeyword}
+        onChangeText={searchPokemonByKeyword}
         inputContainerStyle={styles.searchBarInputContainer}
         containerStyle={styles.searchBarContainer}
         value={keyword}
@@ -65,23 +63,18 @@ export const HomeScreen = (): JSX.Element => {
           horizontal={false}
           numColumns={3}
           data={listData}
-          onEndReached={buildListData()}
+          onEndReached={() => buildListData()}
           refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
           renderItem={renderItem}
           keyExtractor={(item) => item.pokemon.name}
         />
       )}
-      {selectedOne ? (
+      {selectedPokemon.name !== undefined ? (
         <Button
           title={'I choose you!'}
-          buttonStyle={{
-            backgroundColor: '#FFCC00',
-            borderRadius: 3,
-          }}
-          containerStyle={{
-            marginHorizontal: 10,
-            marginVertical: 10,
-          }}
+          buttonStyle={styles.buttonStyle}
+          containerStyle={styles.buttonContainerStyle}
+          onPress={() => choosePokemon(selectedPokemon, navigation)}
         />
       ) : null}
     </View>
@@ -95,4 +88,12 @@ const styles = StyleSheet.create({
   searchBarContainer: {
     backgroundColor: '#0075BE',
   },
+  buttonStyle: {
+    backgroundColor: '#FFCC00',
+    borderRadius: 3,
+  },
+  buttonContainerStyle: {
+    marginHorizontal: 10,
+    marginVertical: 10,
+  }
 })
