@@ -12,13 +12,6 @@ export default class PokemonRepositoryInMemory implements PokemonRepository {
 
   private pokemonEvolve: Pokemon = new Pokemon('Test Pokemon Evolve', 3, [], [], undefined)
 
-  getActivePokemon(): Promise<Pokemon> {
-    return Promise.resolve(this.pokemon)
-  }
-  changeActivePokemon(pokemon: Pokemon): Promise<boolean> {
-    this.pokemon = pokemon
-    return Promise.resolve(true)
-  }
   getNextEvolution(pokemon: Pokemon): Promise<Pokemon> {
     return Promise.resolve(this.pokemonEvolve)
   }

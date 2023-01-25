@@ -15,14 +15,20 @@ describe('Pokemon Repository', () => {
   })
 
   test('Should be able feed pokemon', async function () {
-    const resultChange1 = await feedPokemon.execute(new Berry('Test Berry', 'soft', 'sprite_url'))
-    expect(resultChange1).toBe(true)
-
     const pokemon = await pokemonRepo.getActivePokemon()
+
+    const resultChange1 = await feedPokemon.execute(
+      new Berry('Test Berry', 'soft', 'sprite_url'),
+      pokemon
+    )
+    expect(resultChange1).toBe(true)
 
     expect(pokemon.weight).toBe(6)
 
-    const resultChange2 = await feedPokemon.execute(new Berry('Test Berry', 'soft', 'sprite_url'))
+    const resultChange2 = await feedPokemon.execute(
+      new Berry('Test Berry', 'soft', 'sprite_url'),
+      pokemon
+    )
     expect(resultChange2).toBe(true)
 
     expect(pokemon.weight).toBe(1)
